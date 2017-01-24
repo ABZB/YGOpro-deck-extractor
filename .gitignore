@@ -1,3 +1,9 @@
+# Zip folders
+*.zip
+
+# Database files
+*.cdb
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -14,8 +20,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# Zip folders
-*.zip
 
 # Windows shortcuts
 *.lnk
