@@ -7,7 +7,8 @@ Requirements:
 Python 3.X (sqlite 3 might have to be downloaded seperately)
 
 Installation instructions:
-1) Place paths.txt, Set_up.py, and Deck_Extractor.py in some folder convenient to you. I myself place them in a new folder: /Ygopro/Deck_Extractor/
+1) Place paths.txt, Set_up.py, and Deck_Extractor.py in some folder convenient to you.
+	a) I recommend placing the files in this download in /ygopro/Deck Extractor, and making a shortcut to Deck_Extractor.py somewhere convenient for your use.
 2) Open paths.txt
 	a) Change the second line to the pathway to your YGOpro folder (ending in /ygopro/)
 	b) Change the fourth line to the path whichever folder you want the output to go to.
