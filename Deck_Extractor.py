@@ -3,8 +3,28 @@ import sys
 import os
 import string
 import shutil
+from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import asksaveasfilename
+from tkinter import *
 
-def extract(deck_name):
+def save_deck_text(card_name_array, end_name, out_path):
+	
+	#removes .ydk extension from deck's file's name
+	end_name = end_name.replace(".ydk","")
+	#opens tk GUI...
+	root = Tk()
+	root.withdraw()
+	#gets/creates filename as per (text file, opening window in output path specified in paths.txt file, default extension of .txt, with default name being the name of the deck file)
+	end_name = asksaveasfilename(initialdir = out_path,  defaultextension = ".txt", initialfile = end_name)
+	
+	with open(end_name, 'w') as d:
+		for i in card_name_array:
+			if i == "Main Deck: " or i == "Extra Deck: " or i == "Side Deck: ":
+				d.write("\n")
+			d.write(i)
+			d.write("\n")
+
+def extract():
 
 	#path for pulling .cdb files
 	pathways = []
@@ -18,9 +38,14 @@ def extract(deck_name):
 	
 	deck_path = cdb_path + "deck/" #pathway to deck folder
 	output_path = output_path.strip()
-
-	deck_name = deck_path + deck_name + '.ydk'
-        
+	
+	#invoke tkinter GUI
+	root = Tk()
+	#hides tkinter background window
+	root.withdraw()
+	#opens open file dialogue, default directory is the /deck folder from your specified YgoPro directory
+	deck_name = askopenfilename(filetypes = (("YgoPro Deck Files", "*.ydk"), ("All Files", "*.*")), initialdir = deck_path)
+	
 	#array to store found card names while iterating through databases
 	temp_array = []
 	
@@ -53,17 +78,25 @@ def extract(deck_name):
 				if cardname is None:
 					#if this is the first .cdb, append the card id number as a placeholder
 					if data_number == 0:
-						temp_array.append(str(deck_list_temp[i]))
+						#First three lines catch  the section headers and replace them with nicer headers.
+						if str(deck_list_temp[i]) == '#main':
+							temp_array.append(cardname.replace('#main','Main Deck: '))
+						elif str(deck_list_temp[i]) == '#extra':
+							temp_array.append(cardname.replace('#extra',"Extra Deck: "))
+						elif str(deck_list_temp[i]) == '!side':
+							temp_array.append(cardname.replace('!side',"Side Deck: "))
+						#Otherwise, just append the card code for now
+						else:
+							temp_array.append(str(deck_list_temp[i]))
+					
 				#if card id is found
 				else:
+					#remove the extra characters picked up from SQlite
 					cardname = str(cardname)
 					cardname = cardname.replace("',)","")
 					cardname = cardname.replace("('","")
 					cardname = cardname.replace('",)',"")
 					cardname = cardname.replace('("',"")
-					cardname = cardname.replace('!side',"Side Deck: ")
-					cardname = cardname.replace('#extra',"Extra Deck: ")
-					cardname = cardname.replace('#main',"Main Deck: ")
 					#if this is the first .cdb, append card name
 					if data_number == 0:
 						temp_array.append(cardname)
@@ -72,19 +105,8 @@ def extract(deck_name):
 						temp_array[i] = cardname
 		data_number += 1
 						
-	
-	
-	#request name for output file
-	end_name = input('Enter name for output file: ')
-	end_name += '.txt'
-	end_name = output_path + end_name
-	with open(end_name, 'w') as d:
-		for i in temp_array:
-			if i == "Main Deck: " or i == "Extra Deck: " or i == "Side Deck: ":
-				d.write("\n")
-				
-			d.write(i)
-			d.write("\n")
+	#opens save file dialogue with name of deck as default
+	save_deck_text(temp_array, os.path.basename(deck_name), output_path)
 
 def	update_cdbs():
 	#grab paths from text file
@@ -119,8 +141,5 @@ def	update_cdbs():
 			filenumber += 1 
 	shutil.copy2(main_folder_path + 'cards.cdb', current_directory + 'cards.cdb')
 
-			
-
-deck_name = input('Input Deck Name: ')
 update_cdbs()
-extract(deck_name)
+extract()
