@@ -59,7 +59,7 @@ def extract(deck_name):
 					cardname = str(cardname)
 					cardname = cardname.replace("',)","")
 					cardname = cardname.replace("('","")
-					cardname = cardname.replace('("',"")
+					cardname = cardname.replace('",)',"")
 					cardname = cardname.replace('("',"")
 					cardname = cardname.replace('!side',"Side Deck: ")
 					cardname = cardname.replace('#extra',"Extra Deck: ")
