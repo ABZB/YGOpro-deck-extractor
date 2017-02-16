@@ -134,35 +134,35 @@ def save_deck_text(card_name_array, end_name, out_path, deck_counter, side_deck_
 		d.write(end_name + '\n' + '\n')
 		d.write('Card Count:' + '\n')
 		
-		d.write(str(total_monsters+total_spells+total_traps) + ' Main Deck Total' + '\n'+ '\n')
+		d.write(str(total_monsters+total_spells+total_traps) + ' Cards in Main Deck' + '\n'+ '\n')
 		
-		d.write(str(total_monsters) + ' Monsters total' + '\n')
+		d.write(str(total_monsters) + ' Monster Cards total' + '\n')
 		d.write('\t' + str(deck_counter[0]) + ' Level 7+' + '\n')
 		d.write('\t' + str(deck_counter[1]) + ' Level 5-6' + '\n')
 		d.write('\t' + str(deck_counter[2]) + ' Level 1-4' + '\n' + '\n')
 		
-		d.write(str(total_spells) + ' Spells total' + '\n')
-		d.write('\t' + str(deck_counter[3]) + ' Normal Spells' + '\n')
-		d.write('\t' + str(deck_counter[4]) + ' Quick-Play Spells' + '\n')
-		d.write('\t' + str(deck_counter[5]) + ' Equip Spells' + '\n')
-		d.write('\t' + str(deck_counter[6]) + ' Continuous Spells' + '\n')
-		d.write('\t' + str(deck_counter[7]) + ' Field Spells' + '\n' + '\n')
+		d.write(str(total_spells) + ' Spell Cards' + '\n')
+		d.write('\t' + str(deck_counter[3]) + ' Normal Spell Cards' + '\n')
+		d.write('\t' + str(deck_counter[4]) + ' Quick-Play Spell Cards' + '\n')
+		d.write('\t' + str(deck_counter[5]) + ' Equip Spell Cards' + '\n')
+		d.write('\t' + str(deck_counter[6]) + ' Continuous Spell Cards' + '\n')
+		d.write('\t' + str(deck_counter[7]) + ' Field Spell Cards' + '\n' + '\n')
 		
-		d.write(str(total_traps) + ' Traps total' + '\n')
-		d.write('\t' + str(deck_counter[8]) + ' Normal Traps' + '\n')
-		d.write('\t' + str(deck_counter[9]) + ' Continuous Traps' + '\n')
-		d.write('\t' + str(deck_counter[10]) + ' Counter Traps' + '\n' + '\n')
+		d.write(str(total_traps) + ' Trap Cards' + '\n')
+		d.write('\t' + str(deck_counter[8]) + ' Normal Trap Cards' + '\n')
+		d.write('\t' + str(deck_counter[9]) + ' Continuous Trap Cards' + '\n')
+		d.write('\t' + str(deck_counter[10]) + ' Counter Trap Cards' + '\n' + '\n')
 		
-		d.write(str(total_extra) + ' Extra Deck Total' + '\n')
+		d.write(str(total_extra) + ' Fusion, Synchro, & XYZ Monsters' + '\n')
 		d.write('\t' + str(deck_counter[11]) + ' Fusion Monsters' + '\n')
 		d.write('\t' + str(deck_counter[12]) + ' Synchro Monsters' + '\n')
 		d.write('\t' + str(deck_counter[13]) + ' XYZ Monsters' + '\n' + '\n')
 		
-		d.write(str(total_extra) + ' Side Deck Total' + '\n')
+		d.write(str(total_extra) + ' Cards in Side Deck' + '\n')
 		d.write('\t' + str(side_total_monsters) + ' Main Deck Monsters' + '\n')
-		d.write('\t' + str(side_total_spells) + ' Spells' + '\n')
-		d.write('\t' + str(side_total_traps) + ' Traps' + '\n')
-		d.write('\t' + str(side_total_extra) + ' Fusion/Synchro/XYZ' + '\n')
+		d.write('\t' + str(side_total_spells) + ' Spell Cards' + '\n')
+		d.write('\t' + str(side_total_traps) + ' Traps Card' + '\n')
+		d.write('\t' + str(side_total_extra) + ' Fusion, Synchro, & XYZ Monsters' + '\n')
 		
 		current_card = ''
 		
