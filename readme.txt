@@ -4,7 +4,7 @@ by Aryeh (Andrew) Baruch (AKA ABZB13 AKA The Count of Real Numbers)
 V 2.0
 
 Requirements:
-Python 3.X (sqlite 3 might have to be downloaded seperately)
+Python 3.X (sqlite 3 might have to be downloaded separately)
 
 Installation instructions:
 1) Place paths.txt, Set_up.py, and Deck_Extractor.py in some folder convenient to you.

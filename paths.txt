@@ -1,4 +1,5 @@
 #Pathway to ygopro folder (ending in "/ygopro/")
-C:/Users/abzb1/Dropbox/Games/ygopro/
-#directory for saving output
-C:/Users/abzb1/Downloads/
+C:/Users/
+#default directory for saving output
+C:/Users/
+is_ygopro2 = false

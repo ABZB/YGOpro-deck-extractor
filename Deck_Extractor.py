@@ -40,6 +40,8 @@ def card_type_to_array(c, t, deck_counter):
 			deck_counter[12] += 1
 		elif card_type & 8388608 == 8388608:#XYZ
 			deck_counter[13] += 1
+		elif card_type & 67108864 == 67108864:#Link
+			deck_counter[14] += 1
 		else:#maindeck monster
 			card_level = int(get_card_level(c, t))
 			if card_level >= 7:
@@ -85,6 +87,7 @@ def card_type_to_array(c, t, deck_counter):
 	#11 Fusion
 	#12 Synchro
 	#13 XYZ
+	#14 Link
 	
 	#Monster 0x1
 	#Spell 0x2 --Normal Spells plainly use this, no need to use the "Normal" for monsters.
@@ -122,13 +125,14 @@ def save_deck_text(card_name_array, end_name, out_path, deck_counter, side_deck_
 	total_monsters = deck_counter[0] + deck_counter[1] + deck_counter[2]
 	total_spells = deck_counter[3] + deck_counter[4] + deck_counter[5] + deck_counter[6] + deck_counter[7]
 	total_traps = deck_counter[8] + deck_counter[9] + deck_counter[10]
-	total_extra = deck_counter[11] + deck_counter[12] + deck_counter[13]
+	total_extra = deck_counter[11] + deck_counter[12] + deck_counter[13] + deck_counter[14]
 	
 	#totals for Side Deck
 	side_total_monsters = side_deck_counter[0] + side_deck_counter[1] + side_deck_counter[2]
 	side_total_spells = side_deck_counter[3] + side_deck_counter[4] + side_deck_counter[5] + side_deck_counter[6] + side_deck_counter[7]
 	side_total_traps = side_deck_counter[8] + side_deck_counter[9] + side_deck_counter[10]
-	side_total_extra = side_deck_counter[11] + side_deck_counter[12] + side_deck_counter[13]
+	side_total_extra = side_deck_counter[11] + side_deck_counter[12] + side_deck_counter[13] + side_deck_counter[14]
+	side_total = side_total_monsters + side_total_spells + side_total_traps + side_total_extra
 	
 	with open(file_name, 'w') as d:
 		d.write(end_name + '\n' + '\n')
@@ -136,33 +140,34 @@ def save_deck_text(card_name_array, end_name, out_path, deck_counter, side_deck_
 		
 		d.write(str(total_monsters+total_spells+total_traps) + ' Cards in Main Deck' + '\n'+ '\n')
 		
-		d.write(str(total_monsters) + ' Monster Cards total' + '\n')
-		d.write('\t' + str(deck_counter[0]) + ' Level 7+' + '\n')
-		d.write('\t' + str(deck_counter[1]) + ' Level 5-6' + '\n')
-		d.write('\t' + str(deck_counter[2]) + ' Level 1-4' + '\n' + '\n')
+		d.write('\t' + str(total_monsters) + ' Monster Cards total' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[0]) + ' Level 7+' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[1]) + ' Level 5-6' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[2]) + ' Level 1-4' + '\n' + '\n')
 		
-		d.write(str(total_spells) + ' Spell Cards' + '\n')
-		d.write('\t' + str(deck_counter[3]) + ' Normal Spell Cards' + '\n')
-		d.write('\t' + str(deck_counter[4]) + ' Quick-Play Spell Cards' + '\n')
-		d.write('\t' + str(deck_counter[5]) + ' Equip Spell Cards' + '\n')
-		d.write('\t' + str(deck_counter[6]) + ' Continuous Spell Cards' + '\n')
-		d.write('\t' + str(deck_counter[7]) + ' Field Spell Cards' + '\n' + '\n')
+		d.write('\t' + str(total_spells) + ' Spell Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[3]) + ' Normal Spell Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[4]) + ' Quick-Play Spell Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[5]) + ' Equip Spell Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[6]) + ' Continuous Spell Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[7]) + ' Field Spell Cards' + '\n' + '\n')
 		
-		d.write(str(total_traps) + ' Trap Cards' + '\n')
-		d.write('\t' + str(deck_counter[8]) + ' Normal Trap Cards' + '\n')
-		d.write('\t' + str(deck_counter[9]) + ' Continuous Trap Cards' + '\n')
-		d.write('\t' + str(deck_counter[10]) + ' Counter Trap Cards' + '\n' + '\n')
+		d.write('\t' + str(total_traps) + ' Trap Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[8]) + ' Normal Trap Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[9]) + ' Continuous Trap Cards' + '\n')
+		d.write('\t' + '\t' + str(deck_counter[10]) + ' Counter Trap Cards' + '\n' + '\n')
 		
-		d.write(str(total_extra) + ' Fusion, Synchro, & XYZ Monsters' + '\n')
+		d.write(str(total_extra) + ' Fusion, Synchro, XYZ, & Link Monsters' + '\n')
 		d.write('\t' + str(deck_counter[11]) + ' Fusion Monsters' + '\n')
 		d.write('\t' + str(deck_counter[12]) + ' Synchro Monsters' + '\n')
-		d.write('\t' + str(deck_counter[13]) + ' XYZ Monsters' + '\n' + '\n')
+		d.write('\t' + str(deck_counter[13]) + ' XYZ Monsters' + '\n')
+		d.write('\t' + str(deck_counter[14]) + ' Link Monsters' + '\n' + '\n')
 		
-		d.write(str(total_extra) + ' Cards in Side Deck' + '\n')
+		d.write(str(side_total) + ' Cards in Side Deck' + '\n')
 		d.write('\t' + str(side_total_monsters) + ' Main Deck Monsters' + '\n')
 		d.write('\t' + str(side_total_spells) + ' Spell Cards' + '\n')
-		d.write('\t' + str(side_total_traps) + ' Traps Card' + '\n')
-		d.write('\t' + str(side_total_extra) + ' Fusion, Synchro, & XYZ Monsters' + '\n')
+		d.write('\t' + str(side_total_traps) + ' Trap Cards' + '\n')
+		d.write('\t' + str(side_total_extra) + ' Fusion, Synchro, XYZ, & Link Monsters' + '\n')
 		
 		current_card = ''
 		
@@ -224,14 +229,14 @@ def extract():
 		
 		
 	copied_cdb_path = os.getcwd() + "/"
-	#[Monsters 7+, Monsters 5-6, Monsters 1-4, Normal Spells, Quick-Play Spells, Equip Spells, Continuous Spells, Field Spells, Normal Traps, Continuous Traps, Counter Traps, Fusion, Synchro, XYZ]
-	deck_counter = [0,0,0, 0,0,0,0,0, 0,0,0, 0,0,0]
+	#[Monsters 7+, Monsters 5-6, Monsters 1-4, Normal Spells, Quick-Play Spells, Equip Spells, Continuous Spells, Field Spells, Normal Traps, Continuous Traps, Counter Traps, Fusion, Synchro, XYZ, Link] whitespace in array in next line seperates between monster/spell/trap/extra groupings
+	deck_counter = [0,0,0, 0,0,0,0,0, 0,0,0, 0,0,0,0]
 	#remembers if a particular card has been already read (some cards appear in more than 1 database)
 	count_only_once = []
 	#switches between main/extra and side deck
 	in_side_deck = 0
 	#cards in side deck
-	side_deck_counter = [0,0,0, 0,0,0,0,0, 0,0,0, 0,0,0]
+	side_deck_counter = [0,0,0, 0,0,0,0,0, 0,0,0, 0,0,0,0]
 	
 	
 	#iterarates through every .cdb file in directory. Will fail if program is in different folder than the .cdb files.
@@ -303,31 +308,41 @@ def	update_cdbs():
 		pathways = f.readlines()
 		f.close()
 	cdb_path = pathways[1]
-	main_folder_path = pathways[1]
+	cdb_path = cdb_path.strip()
+	
+	ygopro_version_check = pathways[4]
+	ygopro_version_check = ygopro_version_check.strip()
 
-	#remove newline character
-	main_folder_path = main_folder_path.strip()
+	#path for main .cdb_path
+	directories_list = [cdb_path]
+	
+	#pathway to .cdb expansion folder
 	cdb_path = cdb_path.strip() + "expansions/" #pathway to .cdb folder
+	
+	directories_list.append(cdb_path)
 
-	#If they add new subfolders, update this list
-	directories_list = ['',"live//","live2016//","live2017//","liveanime//"]
-
-	#append various subfolders
-	for iter in range(len(directories_list)):
-		directories_list[iter] = cdb_path + directories_list[iter]
+	#Adds in subfolders of expansions if there are.
+	if ygopro_version_check != "is_ygopro2 = true":
+	#If they add new subfolders, update this list. Update to just grab list of subfolders of expansions at some point.
+		temp_dir = ["live//","live2016//","live2017//","liveanime//","live2017links//","liveanimelinks//"]
+		
+		for i in temp_dir:
+			directories_list.append(cdb_path + i)
 
 	#get current directory
 	current_directory = os.getcwd() + '//'
 
 	#avoids overwriting of same filename in different subfolders
 	filenumber = 0
-
+	
+	for j in directories_list:
+		j = j.strip()
+	
 	#copy over .cdb databases
 	for paths in directories_list:
 		for file in [doc for doc in os.listdir(paths) if doc.endswith(".cdb")]:
 			shutil.copy2(paths + os.path.basename(file), current_directory + str(filenumber) + os.path.basename(file))
 			filenumber += 1 
-	shutil.copy2(main_folder_path + 'cards.cdb', current_directory + 'cards.cdb')
 
 update_cdbs()
 extract()
